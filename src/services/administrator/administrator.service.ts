@@ -15,6 +15,8 @@ export class AdministratorService {
   }
 
   getById(id: number): Promise<Administrator> {
-    return this.administrator.findOne(id);
+    return this.administrator.findOne({
+      where: { administratorId: id },
+    });
   }
 }
