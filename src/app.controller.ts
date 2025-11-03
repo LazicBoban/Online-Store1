@@ -21,7 +21,7 @@ export class AppController {
     return this.administratorService.getAll();
   }
 
-  @Get('api/user')
+  @Get('api/user') // http://localhost:3000/api/user
   getAllUser(): Promise<User[]> {
     return this.userService.getAll();
   }
