@@ -6,10 +6,10 @@ import { User } from 'entities/user.entity';
 
 @Controller()
 export class AppController {
-  constructor(private administratorService: AdministratorService,
-              private userService: UserService,
+  constructor(
+    private administratorService: AdministratorService,
+    private userService: UserService,
   ) {}
-  
 
   @Get() // http://localhost:3000
   getIndex(): string {
@@ -21,8 +21,8 @@ export class AppController {
     return this.administratorService.getAll();
   }
 
-  @Get('api/user')
-  getAllUser():Promise<User[]>{
+  @Get('api/user') // http://localhost:3000/api/user
+  getAllUser(): Promise<User[]> {
     return this.userService.getAll();
   }
 }

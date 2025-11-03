@@ -19,4 +19,8 @@ export class AdministratorService {
       where: { administratorId: id },
     });
   }
+
+  // add
+  // editById
+  // deleteById
 }
