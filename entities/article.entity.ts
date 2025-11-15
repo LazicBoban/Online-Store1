@@ -7,7 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Category } from "./category.entity.ts";
+import { Category } from "./category.entity";
 import { ArticleFeature } from "./article-feature.entity";
 import { ArticlePrice } from "./article-price.entity";
 import { CartArticle } from "./cart-article.entity";
