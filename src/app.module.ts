@@ -16,6 +16,12 @@ import { Feature } from 'entities/feature.entity';
 import { Order } from 'entities/order.entity';
 import { Photo } from 'entities/photo.entity';
 import { AdministratorController } from './controllers/api/administrator.controller';
+import { CategoryService } from './services/category/category.service';
+import { CategoryController } from './controllers/api/category.controller';
+import { ArticleService } from './services/article/article.service';
+import { ArticleController } from './controllers/api/article.controller';
+import { FeatureController } from './controllers/api/feature.controller';
+import { FeatureService } from './services/feature/feature.service';
 
 @Module({
   imports: [
@@ -40,11 +46,25 @@ import { AdministratorController } from './controllers/api/administrator.control
         User,
       ],
     }),
-    TypeOrmModule.forFeature([Administrator, User]),
+    TypeOrmModule.forFeature([Administrator,
+                              User,
+                              Category,
+                              Article,
+                              Feature,
+                              ArticlePrice,
+                              ArticleFeature]),
   ],
   controllers: [AppController,
     AdministratorController,
+    CategoryController,
+    ArticleController,
+    FeatureController
   ],
-  providers: [AdministratorService, UserService],
+  providers: [AdministratorService,
+              UserService,
+              CategoryService,
+              ArticleService,
+              FeatureService
+              ],
 })
 export class AppModule {}

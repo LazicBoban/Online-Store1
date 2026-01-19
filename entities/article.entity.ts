@@ -3,6 +3,8 @@ import {
   Entity,
   Index,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -12,21 +14,22 @@ import { ArticleFeature } from "./article-feature.entity";
 import { ArticlePrice } from "./article-price.entity";
 import { CartArticle } from "./cart-article.entity";
 import { Photo } from "./photo.entity.js";
+import { Feature } from "./feature.entity";
 
 @Index("fk_article_categori_id", ["categoryId"], {})
-@Entity("article", { schema: "aplikacija" })
+@Entity("article")
 export class Article {
   @PrimaryGeneratedColumn({ type: "int", name: "article_id", unsigned: true })
   articleId: number;
 
-  @Column("char", { name: "name", length: 128, default: () => "'0'" })
+  @Column("char", { name: "name", length: 128})
   name: string;
 
-  @Column("int", { name: "category_id", unsigned: true, default: () => "'0'" })
+  @Column("int", { name: "category_id", unsigned: true })
   categoryId: number;
 
-  @Column("varchar", { name: "except", length: 255, default: () => "'0'" })
-  except: string;
+  @Column("varchar", { name: "excerpt", length: 255 })
+  excerpt: string;
 
   @Column("text", { name: "description" })
   description: string;
@@ -38,7 +41,7 @@ export class Article {
   })
   status: "available" | "visible" | "hidden";
 
-  @Column("tinyint", { name: "is_promoted", default: () => "'0'" })
+  @Column("tinyint", { name: "is_promoted" })
   isPromoted: number;
 
   @Column("timestamp", { name: "created_at", default: () => "'now()'" })
@@ -53,6 +56,15 @@ export class Article {
 
   @OneToMany(() => ArticleFeature, (articleFeature) => articleFeature.article)
   articleFeatures: ArticleFeature[];
+
+  @ManyToMany(type => Feature,feature => feature.articles)
+  @JoinTable({
+  name : 'article_feature',
+  joinColumn :{ name : 'article_id', referencedColumnName : 'articleId' },
+  inverseJoinColumn : { name : 'feature_id', referencedColumnName : 'featureId'}
+  })  
+  features : Feature[];
+  
 
   @OneToMany(() => ArticlePrice, (articlePrice) => articlePrice.article)
   articlePrices: ArticlePrice[];
