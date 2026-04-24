@@ -25,6 +25,19 @@ export class AdministratorService {
       where: { administratorId: id },
     });
   }
+
+  async getByUsername(usernameDto: string): Promise<Administrator | null>{
+    const admin = await this.administrator.findOne({
+      where:{username : usernameDto} // trebalo bi ovako
+    });
+
+    if (admin){
+      return admin;
+    }
+
+    return null;
+
+  }
   
 
   add(data: AddAdministratorDto):Promise<Administrator | ApiResponse>{
@@ -45,7 +58,7 @@ export class AdministratorService {
         resolve(response); 
       });
     });
-}
+  }
 
   async editById(id:number,data:EditAdministratorDto):Promise<Administrator | ApiResponse>{
     let admin:Administrator = await this.administrator.findOne({
@@ -62,6 +75,8 @@ export class AdministratorService {
     admin.passwordHash = passwordHashString;
     return this.administrator.save(admin);
   }
+
+
 
   // add
   // editById
